@@ -5,9 +5,6 @@
  */
 package galgeleg;
 
-
-import galgeleg.GalgeI;
-import java.net.MalformedURLException;
 import java.net.URL;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -30,11 +27,9 @@ import javax.xml.ws.Service;
 @Path("play")
 public class GenericResource {
 
-
     @Context
     private UriInfo context;
 
-    
     /**
      * Creates a new instance of GenericResource
      */
@@ -44,9 +39,9 @@ public class GenericResource {
 
     /**
      * Retrieves representation of an instance of hangman.GenericResource
+     *
      * @return an instance of java.lang.String
      */
-    
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public String getXml() {
@@ -64,8 +59,8 @@ public class GenericResource {
     @Path("json/{userid}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("userid") String userid, @QueryParam("letter") String letter) throws MalformedURLException {
-        
+    public String getJson(@PathParam("userid") String userid, @QueryParam("letter") String letter) throws Exception {
+
         // Connect to Java server via SOAP
         URL url = new URL("http://ubuntu4.saluton.dk:9924/galgeleg?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
@@ -73,22 +68,49 @@ public class GenericResource {
         GalgeI spil = service.getPort(GalgeI.class);
 
         // Logic
-        spil.gætBogstav(letter);
-        
+        String response = "";
+        if (letter == null) {
+            letter = "0";
+        }
+        if (letter.matches("[a-zA-Z]") && letter.length() == 1) {
+            if (spil.getBrugteBogstaver().contains(letter)) {
+                response = "Du har allerede gættet på: " + letter;
+            } else {
+                spil.gætBogstav(letter);
+                if (spil.erSidsteBogstavKorrekt()) {
+
+                    if (spil.erSpilletVundet() == true) {
+                        response = "Du har vundet, ordet var: " + spil.getOrdet();
+                        spil.nulstil();
+                    }
+                } else {
+
+                    if (spil.erSpilletTabt() == true) {
+                        response = "Du har tabt, ordet var: " + spil.getOrdet();
+                        spil.nulstil();
+                    }
+                }
+            }
+        } else {
+            response = "Ikke ét bogstav, prøv igen";
+        }
+
         // Method call
         System.out.println("getJson() blev kaldt fra " + context.getRequestUri());
-        
+
         // JSON File:
-        return "{ \n " + 
-                "\"userid\" : \"" + userid + "\", \n " + 
-                "\"name\" : \"" + "temp placeholder" + "\", \n " + 
-                "\"invisibleword\" : " + spil.getSynligtOrd() + " \n " + 
-                "\"usedletters\" : " + spil.getBrugteBogstaver() + " \n " + 
-                //"\"word\" : " + spil.getOrdet() + " \n " + 
-                "\"guessedletter\" : " + letter + " \n " + 
-                "\"item\" : " + "placeholder" + " \n " + 
-                "}";
-        
+        return "{ \n "
+                + "\"userid\" : \"" + userid + "\", \n "
+                + "\"name\" : \"" + "temp placeholder" + "\", \n "
+                + "\"invisibleword\" : \"" + spil.getSynligtOrd() + "\", \n "
+                + "\"usedletters\" : \"" + spil.getBrugteBogstaver() + "\", \n "
+                + //"\"word\" : " + spil.getOrdet() + "\", \n " + 
+                "\"guessedletter\" : \"" + letter + "\", \n "
+                + "\"response\" : \"" + response + "\", \n "
+                + "\"gameover\" : \"" + spil.erSpilletSlut() + "\", \n "
+                + "\"wrongletters\" : \"" + spil.getAntalForkerteBogstaver() + "\" \n "
+                + "}";
+
     }
 
     /**

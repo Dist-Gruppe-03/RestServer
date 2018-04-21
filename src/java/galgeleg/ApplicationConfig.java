@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(galgeleg.CORSFilter.class);
         resources.add(galgeleg.GenericResource.class);
+        resources.add(galgeleg.LoginResource.class);
     }
     
 }
