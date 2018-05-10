@@ -38,6 +38,4 @@ public interface GalgeI extends java.rmi.Remote {
     @WebMethod public void logStatus();
     
     @WebMethod boolean hentBruger(String brugernavn, String adgangskode);
-
-    @WebMethod public void hentOrdFraDr();
 }

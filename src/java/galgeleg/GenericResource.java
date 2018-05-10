@@ -64,7 +64,8 @@ public class GenericResource {
     public String getJson(@PathParam("userid") String userid, @QueryParam("letter") String letter, @QueryParam("reset") String reset) throws Exception {
 
         // Connect to Java server via SOAP
-        URL url = new URL("http://ubuntu4.saluton.dk:9924/galgeleg?wsdl");
+        //URL url = new URL("http://ubuntu4.saluton.dk:9924/galgeleg?wsdl");
+        URL url = new URL("http://localhost:9924/galgeleg?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
         GalgeI spil = service.getPort(GalgeI.class);
