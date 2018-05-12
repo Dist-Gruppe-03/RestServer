@@ -9,7 +9,6 @@ import javax.jws.WebService;
  *
  * @author Christian Thuren Jensen
  */
-
 @WebService
 public interface GalgeI {
 

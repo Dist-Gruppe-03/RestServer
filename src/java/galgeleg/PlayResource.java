@@ -32,28 +32,26 @@ public class PlayResource {
 
     }
 
-    @Path("tekst")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getTekst() {
         System.out.println("getTekst() blev kaldt fra " + context.getRequestUri());
-        return "plain text";
+        return " " + user;
     }
 
-    @Path("json/{uuid}")
+    @Path("{uuid}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(@PathParam("uuid") String uuid, @QueryParam("letter") String letter, @QueryParam("reset") String reset) throws Exception {
 
         // Connect to Java server via SOAP
-        //URL url = new URL("http://ubuntu4.saluton.dk:9924/galgeleg?wsdl");
-        URL url = new URL("http://localhost:9924/galgeleg?wsdl");
+        URL url = new URL(Links.url);
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
         GalgeI spil = service.getPort(GalgeI.class);
 
         // Get username from unique identifier
-        String username = "";
+        String username = null;
         boolean isGameActive = false;
 
         // Check if hashmap contains users, if indeed, then find the user
@@ -63,54 +61,54 @@ public class PlayResource {
                     username = entry.getKey();
                     isGameActive = true;
                     // Write result in log
-                    System.out.println(uuid + " belongs to " + username);
+                    System.out.println("UUID: " + uuid + " belongs to " + username);
                     System.out.println("JSON : Called from " + context.getRequestUri());
                 }
             }
         } else {
             // Write result in log
-            System.out.println(uuid + " does not belong to any user.");
+            System.out.println("UUID: " + uuid + " does not belong to any user.");
             System.out.println("JSON : Called from " + context.getRequestUri());
         }
 
-        // Logic
-        String response = "";
-        // Check is letter is correct
-        if (letter == null) {
-            letter = "";
-        }
-        letter = letter.toLowerCase();
-        if (letter.matches("[a-zA-Z]") && letter.length() == 1) {
-            if (spil.getBrugteBogstaver(username).contains(letter)) {
-                response = "Du har allerede gættet på: " + letter.toUpperCase();
-            } else {
-                spil.gætBogstav(letter.toLowerCase(), username);
-                response = "Der gættes på: " + letter.toUpperCase();
-                if (spil.erSidsteBogstavKorrekt(username)) {
-
-                    if (spil.erSpilletVundet(username) == true) {
-                        response = "Du har vundet, ordet var: " + spil.getOrdet(username);
-                    }
+        if (isGameActive) {
+            // Logic
+            String response = "";
+            // Check is letter is correct
+            if (letter == null) {
+                letter = "";
+            }
+            letter = letter.toLowerCase();
+            if (letter.matches("[a-zA-Z]") && letter.length() == 1) {
+                if (spil.getBrugteBogstaver(username).contains(letter)) {
+                    response = "Du har allerede gættet på: " + letter.toUpperCase();
                 } else {
+                    spil.gætBogstav(letter.toLowerCase(), username);
+                    response = "Der gættes på: " + letter.toUpperCase();
+                    if (spil.erSidsteBogstavKorrekt(username)) {
 
-                    if (spil.erSpilletTabt(username) == true) {
-                        response = "Du har tabt, ordet var: " + spil.getOrdet(username);
+                        if (spil.erSpilletVundet(username) == true) {
+                            response = "Du har vundet, ordet var: " + spil.getOrdet(username);
+                        }
+                    } else {
+
+                        if (spil.erSpilletTabt(username) == true) {
+                            response = "Du har tabt, ordet var: " + spil.getOrdet(username);
+                        }
                     }
                 }
+            } else {
+                response = "Ikke ét bogstav, prøv igen";
+                // Prevent anything other than a letter to be guessed
+                letter = "";
             }
-        } else {
-            response = "Ikke ét bogstav, prøv igen";
-            // Prevent anything other than a letter to be guessed
-            letter = "";
-        }
-        if (reset == null) {
-            reset = "";
-        } else if (reset.equals("true")) {
-            spil.nulstil(username);
-            response = "";
-        }
+            if (reset == null) {
+                reset = "";
+            } else if (reset.equals("true")) {
+                spil.nulstil(username);
+                response = "";
+            }
 
-        if (isGameActive) {
             // JSON File:
             return "{ \n "
                     + "\"userid\" : \"" + username + "\", \n "
@@ -126,6 +124,5 @@ public class PlayResource {
             // If user is not found
             return "{ \"userid\" : \"not found\" }";
         }
-
     }
 }

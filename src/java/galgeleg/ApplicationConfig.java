@@ -4,6 +4,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 /**
+ * REST Web Service
  *
  * @author Christian Thuren Jensen
  */
