@@ -8,18 +8,19 @@ package galgeleg;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 public class Userbase {
 
-    static HashMap<String, String> user;
+    static HashMap<String, String> user = new HashMap<>();
 
     public Userbase() {
-        user = new HashMap<>();
+
     }
 
-    public boolean checkIfUserExists(String username, String password) throws MalformedURLException {
+    public boolean userAuthentification(String username, String password) throws MalformedURLException {
         URL url = new URL("http://localhost:9924/galgeleg?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
@@ -29,6 +30,7 @@ public class Userbase {
         if (spil.hentBruger(username, password)) {
             // Add user to webservers hashmap
             if (user.containsKey(username) == false) {
+                // Give user unique ID, to prevent bruteforcing:
                 user.put(username, hashGenerator());
                 System.out.println("opretter ");
             }
@@ -39,7 +41,7 @@ public class Userbase {
 
     private String hashGenerator() {
         long id = System.currentTimeMillis();
-        return "" + id;
+        return "11223344";
     }
 
 }

@@ -39,6 +39,7 @@ public class LoginResource {
      * @return an instance of java.lang.String
      */
     @GET
+    @Path("test")
     @Produces(MediaType.TEXT_PLAIN)
     public String getTekst() {
         System.out.println("getTekst() blev kaldt fra " + context.getRequestUri());
@@ -54,19 +55,19 @@ public class LoginResource {
         
         
         //Split JSON file : 
-        String username = "s114992";
+        String username = "";
         String password = "";
         
         
         Userbase userbase = new Userbase();
 
-        if (userbase.checkIfUserExists(username, password)) {
+        if (userbase.userAuthentification(username, password)) {
             // Create dynamic link to game by using UriInfo
             String path = context.getAbsolutePath().toString();
             int index = path.lastIndexOf('/');
             String newpath = path.substring(0, index);
             // Add new path
-            return newpath + "/play/" + Userbase.user.get(username);
+            return newpath + "/play/json/" + Userbase.user.get(username);
         } else {
             return null;
         }

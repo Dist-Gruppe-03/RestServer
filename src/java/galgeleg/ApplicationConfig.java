@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package galgeleg;
 
 import java.util.Set;
@@ -12,7 +7,7 @@ import javax.ws.rs.core.Application;
  *
  * @author Christian Thuren Jensen
  */
-@javax.ws.rs.ApplicationPath("hangman")
+@javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -30,8 +25,8 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(galgeleg.CORSFilter.class);
-        resources.add(galgeleg.GenericResource.class);
         resources.add(galgeleg.LoginResource.class);
+        resources.add(galgeleg.PlayResource.class);
     }
     
 }

@@ -11,31 +11,40 @@ import javax.jws.WebService;
  */
 
 @WebService
-public interface GalgeI extends java.rmi.Remote {
+public interface GalgeI {
 
-    @WebMethod public ArrayList<String> getBrugteBogstaver();
+    @WebMethod public int getPersonalHighscore(String username);
+    
+    @WebMethod public String getName(String username);
+    
+    @WebMethod public ArrayList<String> getBrugteBogstaver(String bruger);
 
-    @WebMethod public String getSynligtOrd();
+    @WebMethod public String getSynligtOrd(String bruger);
 
-    @WebMethod public String getOrdet();
+    @WebMethod public String getOrdet(String bruger);
 
-    @WebMethod public int getAntalForkerteBogstaver();
+    @WebMethod public int getAntalForkerteBogstaver(String bruger);
 
-    @WebMethod public boolean erSidsteBogstavKorrekt();
+    @WebMethod public boolean erSidsteBogstavKorrekt(String bruger);
 
-    @WebMethod public boolean erSpilletVundet();
+    @WebMethod public boolean erSpilletVundet(String bruger);
 
-    @WebMethod public boolean erSpilletTabt();
+    @WebMethod public boolean erSpilletTabt(String bruger);
 
-    @WebMethod public boolean erSpilletSlut();
+    @WebMethod public boolean erSpilletSlut(String bruger);
 
-    @WebMethod public void nulstil();
+    @WebMethod public void nulstil(String bruger);
 
-    @WebMethod public void opdaterSynligtOrd();
+    @WebMethod public void opdaterSynligtOrd(String bruger);
 
-    @WebMethod public void gætBogstav(String bogstav);
+    @WebMethod public void gætBogstav(String bogstav, String bruger);
 
-    @WebMethod public void logStatus();
+    @WebMethod public void logStatus(String bruger);
     
     @WebMethod boolean hentBruger(String brugernavn, String adgangskode);
+
+    @WebMethod public void highscoreCheck(String bruger, int score);
+    
+    @WebMethod public void hentOrdFraDr(String bruger);
+
 }
