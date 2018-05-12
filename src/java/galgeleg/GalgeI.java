@@ -46,4 +46,5 @@ public interface GalgeI {
     
     @WebMethod public void hentOrdFraDr(String bruger);
 
+    @WebMethod public String[][] getHighscores();
 }
