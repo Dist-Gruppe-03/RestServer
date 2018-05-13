@@ -43,8 +43,6 @@ public interface GalgeI {
     @WebMethod boolean hentBruger(String brugernavn, String adgangskode);
 
     @WebMethod public void highscoreCheck(String bruger, int score);
-    
-    @WebMethod public void hentOrdFraDr(String bruger);
 
     @WebMethod public String[][] getHighscores();
 }

@@ -25,11 +25,11 @@ public class Userbase {
         // Check if user exists: 
         if (spil.hentBruger(username, password)) {
             // Add user to webservers hashmap
-            if (user.containsKey(username) == false) {
+            if (!user.containsKey(username)) {
                 // Give user unique ID, to prevent bruteforcing:
-                String UUID = hashGenerator();
-                user.put(username, UUID);
-                System.out.println(username + " created with UUID: " + UUID);
+                String uniqueID = hashGenerator();
+                user.put(username, uniqueID);
+                System.out.println(username + " created with UUID: " + uniqueID);
             } else {
                 System.out.println(username + " already exists with UUID: " + user.get(username));
             }

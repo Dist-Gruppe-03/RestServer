@@ -7,6 +7,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -39,6 +40,11 @@ public class PlayResource {
         return " " + user;
     }
 
+
+
+
+    
+    
     @Path("{uuid}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +74,7 @@ public class PlayResource {
         } else {
             // Write result in log
             System.out.println("UUID: " + uuid + " does not belong to any user.");
-            System.out.println("JSON : Called from " + context.getRequestUri());
+            System.out.println("JSON : Game called from " + context.getRequestUri());
         }
 
         if (isGameActive) {
@@ -79,7 +85,7 @@ public class PlayResource {
                 letter = "";
             }
             letter = letter.toLowerCase();
-            if (letter.matches("[a-zA-Z]") && letter.length() == 1) {
+            if (letter.matches("[a-zæøåA-ZÆØÅ]") && letter.length() == 1) {
                 if (spil.getBrugteBogstaver(username).contains(letter)) {
                     response = "Du har allerede gættet på: " + letter.toUpperCase();
                 } else {
