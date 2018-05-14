@@ -35,13 +35,13 @@ public class LoginResource {
 
     /*
      * Login resource that consumes an JSON object with username and password.
-     * If the user exists, it will return a link to the users active game JSON file.
+     * If the user exists, it will return a JSON object with a link to the users active game.
      * If the user is not found, it will not return anything.
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String Login(String JSONFile) throws MalformedURLException {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String login(String JSONFile) throws MalformedURLException {
 
         // Create instance of Userbase, to Authentificate and create UUID
         Userbase userbase = new Userbase();
@@ -62,7 +62,7 @@ public class LoginResource {
             int index = path.lastIndexOf('/');
             String newpath = path.substring(0, index);
             // Add new path
-            return newpath + "/play/" + Userbase.user.get(username);
+            return "{ \"gamepath\" : \"" + newpath + "/play/" + Userbase.user.get(username) + "\" }";
         } else {
             return null;
         }

@@ -5,8 +5,6 @@
  */
 package galgeleg;
 
-import java.net.ConnectException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
