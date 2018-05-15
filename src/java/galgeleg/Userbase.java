@@ -18,7 +18,7 @@ public class Userbase {
     static HashMap<String, String> user = new HashMap<>();
 
     public boolean userAuthentification(String username, String password) throws MalformedURLException {
-        try {
+
         URL url = new URL(Links.url);
         QName qname = new QName("http://galgeleg/", "GalgelogikService");
         Service service = Service.create(url, qname);
@@ -35,6 +35,7 @@ public class Userbase {
             } else {
                 System.out.println(username + " already exists with UUID: " + user.get(username));
             }
+            // Reset the game, if game is over when the user logs in
             if (spil.erSpilletSlut(username)) {
                 spil.nulstil(username);
             }
@@ -42,10 +43,6 @@ public class Userbase {
         }
         // If user does not exist
         System.out.println(username + " was not found.");
-        
-        } catch (WebServiceException e) {
-            System.out.println("Could not connect to Java server. (" + e.getCause() + ")");
-        }
         return false;
     }
 

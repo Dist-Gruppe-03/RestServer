@@ -5,6 +5,7 @@
  */
 package galgeleg;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -12,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
@@ -36,8 +38,7 @@ public class HighscoreResource {
 
     // Return highscore JSON object via GET HTTP Method
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getHighscore() {
+    public Response getHighscore() throws MalformedURLException {
         String highscoreJSON = "";
         try {
             // Connect to gameserver via SOAP
@@ -65,8 +66,8 @@ public class HighscoreResource {
 
         } catch (WebServiceException e) {
             System.out.println("Could not connect to Java server. (" + e.getCause() + ")");
-        } finally {
-            return highscoreJSON;
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Could not connect to Java server. (" + e.getCause() + ")").build();
         }
+            return Response.ok(highscoreJSON, MediaType.APPLICATION_JSON).build();
     }
 }
