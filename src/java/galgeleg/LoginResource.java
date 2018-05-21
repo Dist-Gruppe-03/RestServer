@@ -66,7 +66,7 @@ public class LoginResource {
                 String newJSON = "{ \"gamepath\" : \"" + newpath + "/play/" + Userbase.user.get(username) + "\" }";
                 return Response.ok(newJSON, MediaType.APPLICATION_JSON).build();
             } else {
-                return Response.status(Response.Status.NO_CONTENT).build();
+                return Response.status(Response.Status.UNAUTHORIZED).entity("").build();
             }
         } catch (WebServiceException e) {
             System.out.println("Could not connect to Java server. (" + e.getCause() + ")");

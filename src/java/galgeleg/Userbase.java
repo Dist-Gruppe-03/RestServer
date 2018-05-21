@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.UUID;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
 
 /**
  * REST Web Service
