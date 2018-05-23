@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Galgeleg</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body class="not-logged-in">
+		<!-- Page header -->
+		<div class="header">
+			<div class="head"><h1>Galgeleg</h1></div>
+			<div class="head" id="name"></div>
+		</div>
+		<div class="headerline"></div>
+		<!-- Content -->
+		<div class="positioning">
+			<div style="width: 100%; display: table;">
+				<div style="display: table-row">
+					<!--Game-->
+					<div class="content left">
+						<form id="login_form">
+						  <div class="form-group">
+							<label for="InputUsername">Brugernavn</label>
+							<input type="text" class="form-control" id="username" name="username" placeholder="Brugernavn">
+						  </div>
+						  <div class="form-group">
+							<label for="InputPassword">Password</label>
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+						  </div>
+						  <button type="submit" class="btn btn-default">Login</button>
+						  <div id="feedback"></div>
+						</form>
+
+						<form id="guess_form">
+							<div class="hangman middle">
+								<img src="grafik/forkert0.png" id="image" alt="grafik" style="width:170px;height:205px">
+								<div id="invisibleword"></div>
+								<div id="usedletters"></div>
+							</div>
+							<div class="form-group" id="guess_box">
+								<label for="InputLetter">Gæt et bogstav</label>
+								<input type="text" class="form-control" id="letter" name="letter" placeholder="Bogstav" autocomplete="off">
+								<div id="result"></div>
+							</div>
+						</form>
+						<form id="reset_form">
+							<div class="form-group" id="retry_button">
+								<input type="hidden" id="reset" name="reset" value="true">
+								<div id="result2"></div>
+								<button type="button" id="button" class="btn btn-default">Nyt spil</button>
+							</div>
+						</form>
+					</div>
+					<!--Highscore-->
+					<div class="content right">
+						Highscore<br>
+						(Not yet implemented)
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

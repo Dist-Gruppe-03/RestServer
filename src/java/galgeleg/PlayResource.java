@@ -84,7 +84,7 @@ public class PlayResource {
 
                             if (spil.erSpilletVundet(username) == true) {
                                 spil.highscoreCheck(username, spil.getAntalForkerteBogstaver(username));
-                                response = "Du har vundet, ordet var: " + spil.getOrdet(username);
+                                response = "Du har vundet!";
                             }
                         } else {
 

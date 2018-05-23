@@ -1,0 +1,69 @@
+			body.not-logged-in #guess_form {
+				display: none;
+			}
+			body.logged-in #login_form {
+				display: none;
+			}
+			#retry_button {
+				text-align: center;
+				margin: auto;
+				width: 250px;
+				display: none;
+			}
+			.positioning {
+				width: 95%;
+				margin: auto;
+			}
+			.content {
+				margin: auto;
+				padding: 10px;
+			}	
+			.left {
+				width: 70%;
+				display: table-cell;
+			}
+			.right {
+				display: none;
+				//display: table-cell;
+			}
+			.middle {
+				width: 100%;
+				text-align: center;
+			}
+			.header {
+				background-color: #ecf2f8;
+				height: 80px;
+				padding: 15px;
+				width: 100%;
+			}
+			.headerline {
+				background-color: #3973ac; 
+				height: 10px;
+			}
+			.hangman {
+				margin: auto;
+				width: 250px;
+				vertical-align:middle;
+			}	
+			#usedletters{
+				text-transform: uppercase;
+			}
+			#feedback{
+				display: inline-block;
+				padding-left: 20px;
+				margin: auto;
+			}
+			.submit{
+				display: inline-block;
+			}
+			.head {
+				display: inline-block;
+			}
+			#name {
+				display: inline-block;
+				padding-left: 20px;
+				margin: auto;
+				//text-align:justify;
+				//word-wrap: break-word;
+				//position: absolute; 
+			}

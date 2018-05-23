@@ -54,11 +54,13 @@ public class HighscoreResource {
             highscoreJSON += "{ \"highscores\" :\n";
             highscoreJSON += "  [ \n";
             for (int i = 0; i < highscoreArray[0].length; i++) {
-                highscoreJSON += "    { \"username\" : \"" + highscoreArray[0][i] + "\", \"score\" : \"" + highscoreArray[1][i] + "\" }";
-                if (i == highscoreArray[0].length - 1) {
-                    highscoreJSON += "\n";
-                } else {
-                    highscoreJSON += ",\n";
+                if (!(highscoreArray[0][i].isEmpty())) {
+                    highscoreJSON += "    { \"username\" : \"" + highscoreArray[0][i] + "\", \"score\" : \"" + highscoreArray[1][i] + "\" }";
+                    if (i == highscoreArray[0].length - 1 || highscoreArray[0][i+1].isEmpty()) {
+                        highscoreJSON += "\n";
+                    } else {
+                        highscoreJSON += ",\n";
+                    }
                 }
             }
             highscoreJSON += "  ]\n}";
@@ -67,6 +69,6 @@ public class HighscoreResource {
             System.out.println("Could not connect to Java server. (" + e.getCause() + ")");
             return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Could not connect to Java server. (" + e.getCause() + ")").build();
         }
-            return Response.ok(highscoreJSON, MediaType.APPLICATION_JSON).build();
+        return Response.ok(highscoreJSON, MediaType.APPLICATION_JSON).build();
     }
 }
