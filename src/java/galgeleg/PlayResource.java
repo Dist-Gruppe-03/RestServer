@@ -83,6 +83,7 @@ public class PlayResource {
                         if (spil.erSidsteBogstavKorrekt(username)) {
 
                             if (spil.erSpilletVundet(username) == true) {
+                                spil.highscoreCheck(username, spil.getAntalForkerteBogstaver(username));
                                 response = "Du har vundet, ordet var: " + spil.getOrdet(username);
                             }
                         } else {

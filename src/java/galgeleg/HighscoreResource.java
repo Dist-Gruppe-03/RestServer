@@ -53,9 +53,9 @@ public class HighscoreResource {
             String[][] highscoreArray = spil.getHighscores();
             highscoreJSON += "{ \"highscores\" :\n";
             highscoreJSON += "  [ \n";
-            for (int i = 0; i <= highscoreArray.length; i++) {
+            for (int i = 0; i < highscoreArray[0].length; i++) {
                 highscoreJSON += "    { \"username\" : \"" + highscoreArray[0][i] + "\", \"score\" : \"" + highscoreArray[1][i] + "\" }";
-                if (i == highscoreArray.length) {
+                if (i == highscoreArray[0].length - 1) {
                     highscoreJSON += "\n";
                 } else {
                     highscoreJSON += ",\n";
