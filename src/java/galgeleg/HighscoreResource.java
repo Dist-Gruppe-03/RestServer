@@ -54,7 +54,7 @@ public class HighscoreResource {
             highscoreJSON += "{ \"highscores\" :\n";
             highscoreJSON += "  [ \n";
             for (int i = 0; i <= highscoreArray.length; i++) {
-                highscoreJSON += "    { \"" + highscoreArray[0][i] + "\" : \"" + highscoreArray[1][i] + "\" }";
+                highscoreJSON += "    { \"username\" : \"" + highscoreArray[0][i] + "\", \"score\" : \"" + highscoreArray[1][i] + "\" }";
                 if (i == highscoreArray.length) {
                     highscoreJSON += "\n";
                 } else {
