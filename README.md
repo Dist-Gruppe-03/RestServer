@@ -63,5 +63,5 @@ Reset the ongoing game
 
 Get the top 10 players scores
 ```
-/web/api/play/UUID
+/web/api/highscore
 ```
