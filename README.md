@@ -17,7 +17,7 @@ Log into the webserver to get a unique link to play the game
 
 **Body**
 
->{"username" : "password", "password" : "password"} 
+>{"username" : "`username`", "password" : "`password`"} 
 
 ----
 
